@@ -1,0 +1,72 @@
+/* Styles */
+
+body {
+    background: #f3ec78; 
+  }
+  
+  .weather-app {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #1d3557;
+  }
+  
+  h1 {
+    color: #457b9d;
+    text-shadow: 1px 1px #a8dadc;
+  }
+  
+  h2 {
+    color: #e63946;
+  }
+  
+  .search {
+    display: flex; 
+    justify-content: center;
+    margin: 10px 0;
+  }
+    
+  input, button {
+    border-radius: 4px;
+    padding: 8px 12px;
+  } 
+  
+  #current-weather {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 4px;
+    background: #f1faee;
+    box-shadow: 2px 2px 5px #a8dadc;
+  }
+  
+  #forecast {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .weather-day {
+    text-align: center;
+    padding: 20px;
+    border-radius: 4px;
+    background: #a8dadc;
+    box-shadow: 2px 2px 4px #457b9d; 
+  }
+  
+  #history {
+    padding: 0; 
+    list-style: none;
+  }
+  
+  #history li {
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #1d3557;
+    color: #f1faee;
+    text-shadow: 1px 1px #457b9d;
+  }
+  
+  #history li:hover {
+    background: #457b9d;
+  }
