@@ -1,5 +1,4 @@
 // JavaScript
-var API_KEY = "9d709792281c3c298c41cc4acc281b86"
 // API key and endpoint
 const API_KEY = '9d709792281c3c298c41cc4acc281b86';  
 const API_URL = 'https://api.openweathermap.org/data/2.5/forecast';
@@ -10,16 +9,24 @@ const searchButton = document.getElementById('search-button');
 const currentWeather = document.getElementById('current-weather');
 const forecast = document.getElementById('forecast');
 const historyList = document.getElementById('history');
-
 // Event listeners
-searchButton.addEventListener('click', getWeather);
+searchButton.addEventListener('click', searchWeather);
 historyList.addEventListener('click', getHistoryWeather);
-
+var searchHistory = JSON.parse(localStorage.getItem ("history"))
+if (!searchHistory ){
+searchHistory = []
+}else{
+  displayHistory ()
+}
+function searchWeather (){
+  const city = searchInput.value;
+  getWeather (city)
+}
 // Functions  
-async function getWeather(event) {
+async function getWeather(city) {
 
   // Get city from input
-  const city = searchInput.value;
+  
   
   // API call
   const response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}`);
@@ -37,9 +44,8 @@ async function getWeather(event) {
 function displayCurrentWeather(data) {
   // Display city, date, icon, temp, humidity, wind
   const current = data.list[0];
-
   const html = `
-    <h2>${current.name} (${new Date().toLocaleDateString()})</h2>
+    <h2>${data.city.name} (${new Date().toLocaleDateString()})</h2>
     <img src="https://openweathermap.org/img/w/${current.weather[0].icon}.png"">
     <p>Temp: ${current.main.temp}°F</p>
     <p>Humidity: ${current.main.humidity}%</p>
@@ -81,12 +87,24 @@ function createForecastCard(reading) {
 
 // Add city to search history
 function addToHistory(city) {
-  const html = `<li>${city}</li>`;
-  historyList.innerHTML += html;
+//  console.log (searchHistory)
+  searchHistory.push(city)
+  localStorage.setItem("history",JSON.stringify(searchHistory));
+  displayHistory ()
+}
+function displayHistory (){
+  historyList.innerHTML = ""
+  for (let index = 0; index < searchHistory.length; index++) {
+    const city = searchHistory[index];
+    const html = `<li>${city}</li>`;
+    historyList.innerHTML += html;
+  }
+   
 }
 
 // Get weather for city in history
 function getHistoryWeather(event) {
-  const city = event.target.textContent; 
+  const city = event.target.innerHTML; 
+  console.log (city)
   getWeather(city); 
 }
